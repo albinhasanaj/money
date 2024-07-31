@@ -19,7 +19,7 @@ const Container = ({ header, author, info, sources }: { header: string, author: 
                         {sources && (
                             <>
                                 <span>Sources</span>
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-col">
                                     {sources.map((source, index) => (
                                         <Link 
                                         target='_blank'
