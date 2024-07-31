@@ -26,7 +26,7 @@ const Container = ({ header, author, info, sources, help }: { header: string, au
                                 <button onClick={handleToggleStuck}>Stuck?</button>
                             )}
                         </div>
-                        <p className='text-black text-[16px]'>{author}</p>
+                        <p className='text-black text-[16px] capitalize'>{author}</p>
                     </div>
                     <p className='text-black text-[16px]'>{info}</p>
                     <div className="flex flex-col">
@@ -54,7 +54,7 @@ const Container = ({ header, author, info, sources, help }: { header: string, au
                         <h1 className='text-black text-2xl'>{header}</h1>
                         <button onClick={handleToggleStuck}>Back</button>
                     </div>
-                    <p className='text-black text-[16px]'>{author}</p>
+                    <p className='text-black text-[16px] capitalize'>{author}</p>
                     <div>
                         <div className='flex flex-col gap-10 mt-5'>
                             {help.map((item, index) => (
