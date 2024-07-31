@@ -1,6 +1,9 @@
 "use client"
 import Input from '@/components/Input'
-import React from 'react'
+import React, { useEffect } from 'react'
+//@ts-expect-error no types for js-cookie
+import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 
 const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) => {
 
@@ -9,6 +12,15 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
   const [addTitle, setAddTitle] = React.useState(title)
   const [addTextArea, setAddTextArea] = React.useState([""])
   const [showTextArea, setShowTextArea] = React.useState(false)
+  const [input, setInput] = React.useState('')
+  const [description, setDescription] = React.useState('')
+  const [user, setUser] = React.useState('')
+
+  useEffect(() => {
+    setUser(Cookies.get('name'))
+  }, [])
+
+
   const toggleHidden = (e: any) => {
     console.log(e.target.innerText)
     setView(!view)
@@ -29,8 +41,38 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
     setAddTextArea([...addTextArea, ""])
   }
 
-  if (sources.length > 1 && sources[sources.length - 1] === "") {
-    sources.pop()
+  const handlePublish = async () => {
+
+    const sliceSources = sources.slice(1)
+    console.log(sliceSources)
+
+    try {
+      
+      
+      if (addTitle == "Project") {
+        const res = await fetch('/api/posts/addProject', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user: user,
+            title: input,
+            description: description,
+            sources: sliceSources
+          }),
+        })
+
+        if (!res.ok) {
+          toast.error('Failed to publish')
+        } else {
+          toast.success('Published successfully')
+        }
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -56,8 +98,20 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
           <div className='flex gap-10 mt-8 flex-col justify-between h-full'>
             <div className='flex gap-4'>
               <div className='flex flex-col gap-4'>
-                <Input placeholder='Title*' />
-                <Input placeholder='Description*' />
+              <input
+            type="text"
+            placeholder="Title*"
+            className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ' 
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            
+            />                <input
+            type="text"
+            placeholder="Description*"
+            className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ' 
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            />
               </div>
               <div className='flex flex-col gap-4'>
                 {sources.map((source: any, index: any) => {
@@ -79,7 +133,9 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
               </div>
             )}
             <div className='w-full flex justify-center'>
-              <button className='w-[300px] h-[45px] border-black border-[2px] bg-[#cac9c9] rounded-md'>Publish</button>
+              <button 
+              onClick={handlePublish}
+              className='w-[300px] h-[45px] border-black border-[2px] bg-[#cac9c9] rounded-md'>Publish</button>
             </div>
           </div>
         </div>
