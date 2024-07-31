@@ -21,7 +21,9 @@ const Container = ({ header, author, info, sources }: { header: string, author: 
                                 <span>Sources</span>
                                 <div className="flex flex-wrap gap-2">
                                     {sources.map((source, index) => (
-                                        <Link key={index} href={source}
+                                        <Link 
+                                        target='_blank'
+                                        key={index} href={source}
                                         className='text-blue-500 hover:underline text-[12px]'
                                         >
                                             {source}

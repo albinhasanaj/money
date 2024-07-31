@@ -47,8 +47,6 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
     console.log(sliceSources)
 
     try {
-      
-      
       if (addTitle == "Learn") {
         const res = await fetch('/api/posts/addLearn', {
           method: 'POST',
@@ -60,6 +58,26 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
             title: input,
             description: description,
             sources: sliceSources
+          }),
+        })
+
+        if (!res.ok) {
+          toast.error('Failed to publish')
+        } else {
+          toast.success('Published successfully')
+        }
+      } else if (addTitle == "Project") {
+        const res = await fetch('/api/posts/addProject', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user: user,
+            title: input,
+            description: description,
+            sources: sliceSources,
+            help: addTextArea
           }),
         })
 
@@ -126,6 +144,10 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
                   return <textarea
                     name=""
                     id=""
+                    onChange={(e) => {
+                      addTextArea[index] = e.target.value
+                      setAddTextArea([...addTextArea])
+                    }}
                     placeholder='test'
                     className='h-[200px] block px-5 py-3 w-[600px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none '></textarea>
                 })}

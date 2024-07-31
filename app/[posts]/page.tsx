@@ -30,7 +30,12 @@ const Project = ({ params }: { params: { posts: string } }) => {
     useEffect(() => {
         const fetchAndSetData = async () => {
             if (posts == "home") {
-                setTextToDisplay("BLAH BLAH BLAH")
+                try { 
+                    const length = await fetchData("getProjects")
+                    setTextToDisplay("Projects Total: " + length)
+                } catch (error) {
+                    toast.error("Error fetching data")
+                }
             } else if (posts == "learn") {
                 try {
                     const length = await fetchData("getLearn") 
