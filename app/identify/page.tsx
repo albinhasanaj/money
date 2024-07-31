@@ -22,9 +22,9 @@ const Identify: React.FC = () => {
             <p className='text-[32px]'>Are you Albin, Oliver or Rafey</p>
             <select className='p-2 mt-4 text-black' ref={ref}>
                 <option value="" disabled selected>Select your name</option>
-                <option value="Albin">Albin</option>
-                <option value="Oliver">Oliver</option>
-                <option value="Rafey">Rafey</option>
+                <option value="albin">Albin</option>
+                <option value="oliver">Oliver</option>
+                <option value="rafey">Rafey</option>
             </select>
             <button className='bg-black p-2 mt-4' onClick={handleClick}>Submit</button>
         </section>

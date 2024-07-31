@@ -2,33 +2,29 @@
 import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
+import { useRouter } from 'next/navigation';
+
+//@ts-expect-error no types for js-cookie
+import Cookies from 'js-cookie';
+
+const yourname = Cookies.get('name');
 
 const Paths = () => {
   const [skill, setSkill] = useState('');
-  // const [data, setData] = useState([]);
-
-  const placeholdername = "albin";
-
-  const data = [
-    { skill: 'HTML', percentage: 90 },
-    { skill: 'CSS', percentage: 80 },
-    { skill: 'JavaScript', percentage: 70 },
-    { skill: 'React', percentage: 60 },
-    { skill: 'Node', percentage: 50 },
-    { skill: 'MongoDB', percentage: 40 },
-    { skill: 'Express', percentage: 30 },
-  ];
+  const [data, setData] = useState([]);
+  const [name, setName] = useState(yourname);
+  const router = useRouter();
 
   useEffect(() => {
+
     const fetchData = async () => {
-      const res = await fetch('/api/skills/getSkills?name=' + placeholdername);
+      const res = await fetch('/api/skills/getSkills?name=' + name);
       const data = await res.json();
-      // setData(data);
-      console.log(data);
+      setData(data);
     };
 
     fetchData();
-  }, []);
+  }, [name]);
 
   const createSkill = async () => {
     const res = await fetch('/api/skills/addSkill', {
@@ -45,11 +41,43 @@ const Paths = () => {
       console.error('Error adding skill');
     }
   };
+
+  const handleChangePercentage = async (skill: any, percentage: number) => {
+    if (name === yourname) {
+      const res = await fetch('/api/skills/changeSkill', {
+        method: 'PATCH',
+        body: JSON.stringify({ skill, percentage, name }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.ok) {
+        console.log('Skill updated');
+        router.refresh();
+      } else {
+        console.error('Error updating skill');
+      }
+    }
+
+  };
+
+  // option to show first, second and third
+  const people = ['oliver', 'albin', 'rafey'];
+  // make the yourname sorted first
   
   return (
     <section className='min-h-screen flex flex-col text-black items-center p-4'>
       <label htmlFor="paths" className='self-start'>Path</label>
-      <select name="paths" id="paths" className='p-2 max-w-[200px] self-start'>
+      <select 
+        name="paths" 
+        id="paths" 
+        className='p-2 max-w-[200px] self-start'
+        onChange={(e) => {
+          setName(e.target.value);
+        }
+        }
+        value={name}
+      >
         <option value="oliver">Oliver</option>
         <option value="albin">Albin</option>
         <option value="rafey">Rafey</option>
@@ -80,13 +108,19 @@ const Paths = () => {
         {data.map(({ skill, percentage }) => (
             <div key={skill} className='flex justify-between bg-[#F9F6F2] p-4'>
                 <span>{skill}</span>
-                <div>
-                <input type="text" value={percentage}
-                 className='w-[50px] text-center'
-                 onChange={(e) => console.log(e.target.value)}
-                 />
-                 %
-                </div>
+                <select
+                  value={percentage}
+                  onChange={(e) => handleChangePercentage(skill, parseInt(e.target.value))}
+                >
+                 {/* loop through 0-100 */}
+                  {[...Array.from(Array(101).keys())].map((i) => (
+                      <option 
+                      key={i} 
+                      value={i}
+                      >{i}%</option>
+                  ))}
+                  
+                </select>
             </div>
         ))}
         <div
@@ -98,8 +132,8 @@ const Paths = () => {
           <button onClick={createSkill} className='border-2'>submit</button>
 
         </div>
-
       </div>
+
 
     </section>
   );
