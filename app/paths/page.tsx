@@ -61,10 +61,6 @@ const Paths = () => {
 
   };
 
-  // option to show first, second and third
-  const people = ['oliver', 'albin', 'rafey'];
-  // make the yourname sorted first
-  
   return (
     <section className='min-h-screen flex flex-col text-black items-center p-4'>
       <label htmlFor="paths" className='self-start'>Path</label>
@@ -92,7 +88,7 @@ const Paths = () => {
         series={[
           {
             dataKey: 'percentage',
-            color: 'white',
+            color: "white"
           }
         ]}
         height={800}
