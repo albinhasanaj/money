@@ -5,11 +5,11 @@ import React, { useEffect } from 'react'
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
-const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) => {
+const Publish: React.FC = () => {
 
-  const [sources, setSources] = React.useState([""])
-  const [view, setView] = React.useState(toggleView)
-  const [addTitle, setAddTitle] = React.useState(title)
+  const [sources, setSources] = React.useState<string[]>([""]);
+  const [view, setView] = React.useState<boolean>(false)
+  const [addTitle, setAddTitle] = React.useState("")
   const [addTextArea, setAddTextArea] = React.useState([""])
   const [showTextArea, setShowTextArea] = React.useState(false)
   const [input, setInput] = React.useState('')
@@ -17,24 +17,26 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
   const [user, setUser] = React.useState('')
 
   useEffect(() => {
-    setUser(Cookies.get('name'))
+    setUser(Cookies.get('name') || '')
   }, [])
 
 
   const toggleHidden = (e: any) => {
-    console.log(e.target.innerText)
-    setView(!view)
-    if (e.target.innerText == "Project") {
-      setAddTitle("Project")
-      setShowTextArea(true)
-    } else if (e.target.innerText == "Learn") {
-      setAddTitle("Learn")
-      setShowTextArea(false)
-    } else if (e.target.innerText == "Review") {
-      setAddTitle("Review")
-      setShowTextArea(false)
+    const target = e.target as HTMLDivElement;
+    console.log(target.innerText);
+    setView(!view);
+    if (target.innerText === "Project") {
+      setAddTitle("Project");
+      setShowTextArea(true);
+    } else if (target.innerText === "Learn") {
+      setAddTitle("Learn");
+      setShowTextArea(false);
+    } else if (target.innerText === "Review") {
+      setAddTitle("Review");
+      setShowTextArea(false);
     }
-  }
+  };
+  
 
 
   const handleAddTextArea = () => {
@@ -152,6 +154,7 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
               <div className='flex flex-col items-center gap-8'>
                 {addTextArea.map((textArea: any, index: any) => {
                   return <textarea
+                    key={index}
                     name=""
                     id=""
                     onChange={(e) => {

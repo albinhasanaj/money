@@ -22,7 +22,9 @@ const Container = ({ header, author, info, sources, help }: { header: string, au
                     <div className='flex flex-col w-full gap-2'>
                         <div className='flex flex-row w-full justify-between '>
                             <h1 className='text-black text-2xl'>{header}</h1>
-                            <button onClick={handleToggleStuck}>Stuck?</button>
+                            {help && (
+                                <button onClick={handleToggleStuck}>Stuck?</button>
+                            )}
                         </div>
                         <p className='text-black text-[16px]'>{author}</p>
                     </div>
