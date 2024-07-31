@@ -15,14 +15,12 @@ const Paths = () => {
   const [name, setName] = useState(yourname);
   const router = useRouter();
 
+  const fetchData = async () => {
+    const res = await fetch('/api/skills/getSkills?name=' + name);
+    const data = await res.json();
+    setData(data);
+  };
   useEffect(() => {
-
-    const fetchData = async () => {
-      const res = await fetch('/api/skills/getSkills?name=' + name);
-      const data = await res.json();
-      setData(data);
-    };
-
     fetchData();
   }, [name]);
 
@@ -53,7 +51,7 @@ const Paths = () => {
       });
       if (res.ok) {
         console.log('Skill updated');
-        router.refresh();
+        fetchData();
       } else {
         console.error('Error updating skill');
       }
