@@ -17,6 +17,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         const { skill } = req.body;
 
+        if (!skill) {
+            return res.status(400).json({ message: "Skill is required" });
+        }
+
+        if (skill.split(" ")[0] == "delete") {
+            // remove delete from skill
+            // remove the first
+            const skillToDelete = skill.split(" ");
+            skillToDelete.shift();
+
+            const joinedSkill = skillToDelete.join(" ");
+            if (!joinedSkill) {
+                return res.status(400).json({ message: "Skill is required" });
+            }
+
+            // Check if skill already exists
+            const skillExists = await Paths.findOne({ "skills.skill": joinedSkill });
+
+            if (!skillExists) {
+                return res.status(400).json({ message: "Skill does not exist" });
+            }
+
+            // Delete the skill
+            await Paths.deleteMany({ "skills.skill": joinedSkill });
+            
+            return res.status(200).json({ message: "Skill deleted" });
+        }
+
+
         // Check if skill already exists
         const skillExists = await Paths.findOne({ "skills.skill": skill });
 

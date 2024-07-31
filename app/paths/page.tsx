@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 //@ts-expect-error no types for js-cookie
 import Cookies from 'js-cookie';
@@ -33,10 +34,13 @@ const Paths = () => {
       },
     });
 
+    const data = await res.json();
+
     if (res.ok) {
-      console.log('Skill added');
+      toast.success(data.message);
     } else {
-      console.error('Error adding skill');
+      toast.error(data.message);
+      console.error(data.message);
     }
   };
 
@@ -120,7 +124,7 @@ const Paths = () => {
         <div
         className='flex justify-between bg-[#F9F6F2] p-4' 
         >
-          <input type="text" name="" id="" placeholder='skill' className='w-[200px] border-2'
+          <input type="text" name="" id="" placeholder='skill or delete [skill]' className='w-[200px] border-2'
           onChange={(e) => setSkill(e.target.value)}
           />
           <button onClick={createSkill} className='border-2'>submit</button>
