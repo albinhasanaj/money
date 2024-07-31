@@ -9,14 +9,18 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-
     description: {
         type: String,
         required: true,
     },
-    sources: [],
-    help: [],
-
+    sources: {
+        type: [String],
+        default: [],
+    },
+    help: {
+        type: [String],
+        default: [],
+    },
 }, {
     timestamps: true,
 });
