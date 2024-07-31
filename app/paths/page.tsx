@@ -88,6 +88,14 @@ const Paths = () => {
                 scaleType: 'band', 
                 dataKey: 'skill',
             }]}
+            yAxis={[
+                {
+                    scaleType: 'linear',
+                    dataKey: 'percentage',
+                    min: 0,
+                    max: 100,
+                },
+            ]}
         series={[
           {
             dataKey: 'percentage',
