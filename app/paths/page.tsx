@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
 import { useRouter } from 'next/navigation';
@@ -12,14 +12,14 @@ const yourname = Cookies.get('name');
 
 const Paths = () => {
   const [skill, setSkill] = useState('');
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<any[]>([]);
   const [name, setName] = useState(yourname);
   const router = useRouter();
 
   const fetchData = async () => {
     const res = await fetch('/api/skills/getSkills?name=' + name);
     const data = await res.json();
-    setData(data);
+    setData(Array.isArray(data) ? data : []);
   };
   useEffect(() => {
     fetchData();
@@ -38,6 +38,7 @@ const Paths = () => {
 
     if (res.ok) {
       toast.success(data.message);
+      fetchData();
     } else {
       toast.error(data.message);
       console.error(data.message);
@@ -103,24 +104,28 @@ const Paths = () => {
       />
       <span className='text-[20px]'>Levels</span>
       <div className='flex flex-col gap-6 w-[1000px]'>
-        {data.map(({ skill, percentage }) => (
-            <div key={skill} className='flex justify-between bg-[#F9F6F2] p-4'>
-                <span>{skill}</span>
-                <select
-                  value={percentage}
-                  onChange={(e) => handleChangePercentage(skill, parseInt(e.target.value))}
-                >
-                 {/* loop through 0-100 */}
-                  {[...Array.from(Array(101).keys())].map((i) => (
-                      <option 
-                      key={i} 
-                      value={i}
-                      >{i}%</option>
-                  ))}
-                  
-                </select>
-            </div>
-        ))}
+      {data && data.length > 0 ? (
+                data.map(({ skill, percentage }) => (
+                    <div key={skill} className='flex justify-between bg-[#F9F6F2] p-4'>
+                        <span>{skill}</span>
+                        <select
+                            value={percentage}
+                            onChange={(e) => handleChangePercentage(skill, parseInt(e.target.value))}
+                        >
+                            {/* loop through 0-100 */}
+                            {[...Array.from(Array(101).keys())].map((i) => (
+                                <option 
+                                    key={i} 
+                                    value={i}
+                                >{i}%</option>
+                            ))}
+                        </select>
+                    </div>
+                ))
+            ) : (
+                <div>No skills found</div>
+            )}
+        
         <div
         className='flex justify-between bg-[#F9F6F2] p-4' 
         >
