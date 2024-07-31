@@ -1,18 +1,26 @@
 "use client";
 import ContainersContainer from '@/components/ContainersContainer'
 import React, { useEffect } from 'react'
+import toast from 'react-hot-toast';
 
 const Project = ({ params }: { params: { posts: string } }) => {
     const { posts } = params
     const [data, setData] = React.useState([])
 
-    let textToDisplay = ""
+    const [textToDisplay, setTextToDisplay] = React.useState("")
 
     const fetchData = async (destination: string) => {
         try {
             const res = await fetch(`/api/posts/${destination}`)
-            const data = await res.json()
-            setData(data)
+            if (res.ok) {
+                const data = await res.json()
+                if (data.length == 0) {
+                    toast.error("No data found")
+                } else {
+                    setData(data)
+                }
+                return data.length
+            }
         } catch (error) {
             console.log(error)
         }
@@ -20,19 +28,23 @@ const Project = ({ params }: { params: { posts: string } }) => {
     
 
     useEffect(() => {
-        if (posts == "home") {
-            try {
-                fetchData("getProjects") 
-            } catch (error) {
-                
+        const fetchAndSetData = async () => {
+            if (posts == "home") {
+                setTextToDisplay("BLAH BLAH BLAH")
+            } else if (posts == "learn") {
+                try {
+                    const length = await fetchData("getLearn") 
+                    setTextToDisplay("Projects Total: " + length)
+                } catch (error) {
+                    toast.error("Error fetching data")
+                }
+            } else if (posts == "review") {
+                setTextToDisplay("Review: 50%")
             }
-            textToDisplay = "Projects Completed: 2/3"
-        } else if (posts == "learn") {
-            textToDisplay = "Knowledge gathered: 100%"
-        } else if (posts == "review") {
-            textToDisplay = "Solved: 50%"
         }
-    }, []);
+    
+        fetchAndSetData();
+    }, [posts]);
     return (
         <div className=' bg-[#D1D1D1] w-full items-center flex flex-col pt-10'>
             <p className='text-black text-[16px] w-[756px] text-start pb-2'>{textToDisplay}</p>

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { connectToDB } from "@/lib/connectToDB";
-import Projects from "@/models/projectsSchema";
+import Learn from "@/models/learnSchema";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -11,8 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await connectToDB();
 
     try {
-        const projects = await Projects.find();
-        console.log(projects);
+        //sort by time latest
+        const projects = await Learn.find({}).sort({ createdAt: -1 });
         res.status(200).json(projects);
     } catch (error) {
         res.status(500).json({ message: "Internal server error" });

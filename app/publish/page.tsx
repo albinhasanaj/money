@@ -49,8 +49,8 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
     try {
       
       
-      if (addTitle == "Project") {
-        const res = await fetch('/api/posts/addProject', {
+      if (addTitle == "Learn") {
+        const res = await fetch('/api/posts/addLearn', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

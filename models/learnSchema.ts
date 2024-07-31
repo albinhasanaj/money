@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const projectsSchema = new mongoose.Schema({
+const learnSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -20,5 +20,5 @@ const projectsSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-const Projects = mongoose.models.Projects || mongoose.model('Projects', projectsSchema);
-export default Projects;
+const Learn = mongoose.models.Learn || mongoose.model("Learn", learnSchema);
+export default Learn;
