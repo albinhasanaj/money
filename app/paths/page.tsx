@@ -1,20 +1,51 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
 
 const Paths = () => {
+  const [skill, setSkill] = useState('');
+  // const [data, setData] = useState([]);
+
+  const placeholdername = "albin";
+
   const data = [
-    { skill: 'NETWORKING', percentage: 100 },
-    { skill: 'CLOUD', percentage: 10 },
-    { skill: 'SECURITY', percentage: 50 },
-    { skill: 'DATABASE', percentage: 60 },
-    { skill: 'PROGRAMMING', percentage: 80 },
-    { skill: 'DEVOPS', percentage: 30 },
-    { skill: 'DATA SCIENCE', percentage: 40 },
-    { skill: 'WEB DEV', percentage: 70 },
+    { skill: 'HTML', percentage: 90 },
+    { skill: 'CSS', percentage: 80 },
+    { skill: 'JavaScript', percentage: 70 },
+    { skill: 'React', percentage: 60 },
+    { skill: 'Node', percentage: 50 },
+    { skill: 'MongoDB', percentage: 40 },
+    { skill: 'Express', percentage: 30 },
   ];
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('/api/skills/getSkills?name=' + placeholdername);
+      const data = await res.json();
+      // setData(data);
+      console.log(data);
+    };
+
+    fetchData();
+  }, []);
+
+  const createSkill = async () => {
+    const res = await fetch('/api/skills/addSkill', {
+      method: 'POST',
+      body: JSON.stringify({ skill }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (res.ok) {
+      console.log('Skill added');
+    } else {
+      console.error('Error adding skill');
+    }
+  };
+  
   return (
     <section className='min-h-screen flex flex-col text-black items-center p-4'>
       <label htmlFor="paths" className='self-start'>Path</label>
@@ -51,14 +82,22 @@ const Paths = () => {
                 <span>{skill}</span>
                 <div>
                 <input type="text" value={percentage}
-                 className='w-[50px] text-center' />
+                 className='w-[50px] text-center'
+                 onChange={(e) => console.log(e.target.value)}
+                 />
                  %
                 </div>
             </div>
         ))}
-        <div className='flex justify-center bg-[#F9F6F2] p-4'>
-                Add new skill (TO ALL DEFAULT 0%)
-            </div>
+        <div
+        className='flex justify-between bg-[#F9F6F2] p-4' 
+        >
+          <input type="text" name="" id="" placeholder='skill' className='w-[200px] border-2'
+          onChange={(e) => setSkill(e.target.value)}
+          />
+          <button onClick={createSkill} className='border-2'>submit</button>
+
+        </div>
 
       </div>
 
