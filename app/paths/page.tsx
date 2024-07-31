@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
 import { useRouter } from 'next/navigation';
@@ -14,16 +14,16 @@ const Paths = () => {
   const [skill, setSkill] = useState('');
   const [data, setData] = useState<any[]>([]);
   const [name, setName] = useState(yourname);
-  const router = useRouter();
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     const res = await fetch('/api/skills/getSkills?name=' + name);
     const data = await res.json();
     setData(Array.isArray(data) ? data : []);
-  };
+  }, [name]);
+  
   useEffect(() => {
     fetchData();
-  }, [name]);
+  }, [fetchData]);
 
   const createSkill = async () => {
     const res = await fetch('/api/skills/addSkill', {

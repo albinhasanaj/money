@@ -8,7 +8,7 @@ import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const CodeDisplay = ({ code }: { code: string }) => {
   return (
-    <SyntaxHighlighter language="javascript" style={docco}>
+    <SyntaxHighlighter language="python" style={docco}>
       {code}
     </SyntaxHighlighter>
   );
