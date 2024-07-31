@@ -116,20 +116,30 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
           <div className='flex gap-10 mt-8 flex-col justify-between h-full'>
             <div className='flex gap-4'>
               <div className='flex flex-col gap-4'>
-              <input
-            type="text"
-            placeholder="Title*"
-            className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ' 
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            
-            />                <input
-            type="text"
-            placeholder="Description*"
-            className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none ' 
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            />
+                <input
+                  type="text"
+                  placeholder="Title*"
+                  className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none '
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                />
+                {addTitle == "Review" ? (
+                  <div>
+                    <textarea
+                      placeholder="Description*"
+                      name="Description"
+                      id="Description"
+                      className='w-full h-[100px] py-3 px-4 block border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none'></textarea>
+                  </div>
+                ) : (
+                  <input
+                    type="text"
+                    placeholder="Description*"
+                    className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none '
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                )}
               </div>
               <div className='flex flex-col gap-4'>
                 {sources.map((source: any, index: any) => {
@@ -155,9 +165,9 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
               </div>
             )}
             <div className='w-full flex justify-center'>
-              <button 
-              onClick={handlePublish}
-              className='w-[300px] h-[45px] border-black border-[2px] bg-[#cac9c9] rounded-md'>Publish</button>
+              <button
+                onClick={handlePublish}
+                className='w-[300px] h-[45px] border-black border-[2px] bg-[#cac9c9] rounded-md'>Publish</button>
             </div>
           </div>
         </div>
