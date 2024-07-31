@@ -15,14 +15,12 @@ const Paths = () => {
   const [name, setName] = useState(yourname);
   const router = useRouter();
 
+  const fetchData = async () => {
+    const res = await fetch('/api/skills/getSkills?name=' + name);
+    const data = await res.json();
+    setData(data);
+  };
   useEffect(() => {
-
-    const fetchData = async () => {
-      const res = await fetch('/api/skills/getSkills?name=' + name);
-      const data = await res.json();
-      setData(data);
-    };
-
     fetchData();
   }, [name]);
 
@@ -53,7 +51,7 @@ const Paths = () => {
       });
       if (res.ok) {
         console.log('Skill updated');
-        router.refresh();
+        fetchData();
       } else {
         console.error('Error updating skill');
       }
@@ -61,10 +59,6 @@ const Paths = () => {
 
   };
 
-  // option to show first, second and third
-  const people = ['oliver', 'albin', 'rafey'];
-  // make the yourname sorted first
-  
   return (
     <section className='min-h-screen flex flex-col text-black items-center p-4'>
       <label htmlFor="paths" className='self-start'>Path</label>
@@ -92,7 +86,7 @@ const Paths = () => {
         series={[
           {
             dataKey: 'percentage',
-            color: 'white',
+            color: "white"
           }
         ]}
         height={800}
