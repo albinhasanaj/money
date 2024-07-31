@@ -17,6 +17,7 @@ const Project = ({ params }: { params: { posts: string } }) => {
             console.log(error)
         }
     }
+    
 
     useEffect(() => {
         if (posts == "home") {

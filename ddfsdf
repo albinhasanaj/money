@@ -1,0 +1,16 @@
+[33m16063f5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: commit: cool
+[33mcd8a63d[m HEAD@{1}: pull: Fast-forward
+[33m6911b46[m HEAD@{2}: commit: bugfixes
+[33m1b9482a[m HEAD@{3}: commit: delete skill
+[33mb58c82a[m HEAD@{4}: pull: Fast-forward
+[33mb0cec8a[m HEAD@{5}: commit: real time fetch
+[33md945d97[m HEAD@{6}: commit: changes
+[33ma3ed3bd[m HEAD@{7}: commit: db implement w paths
+[33mcc6eb95[m HEAD@{8}: commit: navbar add again
+[33m7a655bc[m HEAD@{9}: commit (merge): push again
+[33m4f81f7b[m HEAD@{10}: commit: haha
+[33mb566cb6[m HEAD@{11}: commit: design
+[33m5d8a39c[m HEAD@{12}: commit: navbar
+[33mf266296[m HEAD@{13}: commit: env added
+[33m46acd50[m HEAD@{14}: Branch: renamed refs/heads/master to refs/heads/main
+[33m46acd50[m HEAD@{16}: commit (initial): Initial commit from Create Next App
