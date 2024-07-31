@@ -111,7 +111,7 @@ const Publish = ({ toggleView, title }: { toggleView: boolean, title: string }) 
 
       <section className={view ? 'w-full flex flex-col' : 'hidden'}>
         <div className='w-[756px] h-auto rounded-[15px] bg-[#E2E2E2] flex flex-col items-center py-5'>
-          <button className='self-start text-3xl' onClick={toggleHidden}>⬅️ bakc</button>
+          <button className='self-start text-3xl' onClick={toggleHidden}>⬅️ back</button>
           <h1 className='text-black text-2xl'>{addTitle}</h1>
           <div className='flex gap-10 mt-8 flex-col justify-between h-full'>
             <div className='flex gap-4'>

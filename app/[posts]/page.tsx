@@ -15,7 +15,8 @@ const Project = ({ params }: { params: { posts: string } }) => {
             if (res.ok) {
                 const data = await res.json()
                 if (data.length == 0) {
-                    toast.error("No data found")
+                    // toast.error("No data found")
+                    console.error("No data found")
                 } else {
                     setData(data)
                 }
@@ -34,14 +35,16 @@ const Project = ({ params }: { params: { posts: string } }) => {
                     const length = await fetchData("getProjects")
                     setTextToDisplay("Projects Total: " + length)
                 } catch (error) {
-                    toast.error("Error fetching data")
+                    // toast.error("Error fetching data")
+                    console.error(error)
                 }
             } else if (posts == "learn") {
                 try {
                     const length = await fetchData("getLearn") 
-                    setTextToDisplay("Projects Total: " + length)
+                    setTextToDisplay("Total learning: " + length)
                 } catch (error) {
-                    toast.error("Error fetching data")
+                    // toast.error("Error fetching data")
+                    console.error(error)
                 }
             } else if (posts == "review") {
                 setTextToDisplay("Review: 50%")
