@@ -18,7 +18,7 @@ const Container = ({ header, author, info, sources, help, isDone, username }: { 
     const handleToggleDone = async () => {
         // fetch db
         try {
-            
+
             const res = await fetch('/api/posts/updateDone', {
                 method: 'PATCH',
                 body: JSON.stringify({ title: header, username, isDone: !toggleDone }),
@@ -37,7 +37,7 @@ const Container = ({ header, author, info, sources, help, isDone, username }: { 
         } finally {
             setToggleDone(!toggleDone)
         }
-        
+
     }
 
 
@@ -50,7 +50,7 @@ const Container = ({ header, author, info, sources, help, isDone, username }: { 
                         <div className='flex flex-row w-full justify-between '>
                             <h1 className='text-black text-2xl transition-colors duration-500 dark:text-white'>{header}</h1>
                             {help && (
-                                <button onClick={handleToggleStuck} className='hover:animate-bounce'>Stuck?</button>
+                                <button onClick={handleToggleStuck}>Stuck?</button>
                             )}
                         </div>
                         <p className='text-black text-[16px] capitalize transition-colors duration-500 dark:text-white'>{author}</p>
@@ -88,7 +88,7 @@ const Container = ({ header, author, info, sources, help, isDone, username }: { 
                 <div className='flex flex-col w-full gap-2'>
                     <div className='flex flex-row w-full justify-between '>
                         <h1 className='text-black text-2xl transition-colors duration-500 dark:text-white'>{header}</h1>
-                        <button onClick={handleToggleStuck} className='hover:animate-bounce'>Back</button>
+                        <button onClick={handleToggleStuck}>Back</button>
                     </div>
                     <p className='text-black text-[16px] capitalize transition-colors duration-500 dark:text-white'>{author}</p>
                     <div>

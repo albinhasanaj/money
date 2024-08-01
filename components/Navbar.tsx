@@ -1,20 +1,23 @@
 "use client";
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //@ts-expect-error no types for js-cookie
 import Cookies from 'js-cookie';
 
+import {
+  enable as enableDarkMode,
+  disable as disableDarkMode,
+  auto as followSystemColorScheme,
+  exportGeneratedCSS as collectCSS,
+  isEnabled as isDarkReaderEnabled
+} from 'darkreader';
+
 const Navbar = () => {
-  const [darkMode, setDarkMode] = React.useState(false);
+  const [darkMode, setDarkMode] = useState(true);
+  const [darkReaderMode, setDarkReaderMode] = useState(true);
   const [yourname, setYourname] = React.useState("Your name");
-  useEffect(() => {
-    const name = Cookies.get('name');
-    if (name) {
-      setYourname(name);
-    }
-  }, []);
 
   useEffect(() => {
     if (darkMode) {
@@ -24,8 +27,33 @@ const Navbar = () => {
     }
   }, [darkMode]);
 
+  useEffect(() => {
+    if (darkReaderMode) {
+      enableDarkMode({
+        brightness: 100,
+        contrast: 90,
+        sepia: 10,
+      });
+    } else {
+      disableDarkMode();
+    }
+  }, [darkReaderMode]);
+
+  useEffect(() => {
+    const name = Cookies.get('name');
+    if (name) {
+      setYourname(name);
+    }
+  }, []);
+
   const handleDarkMode = () => {
-    setDarkMode(!darkMode);
+    if (darkMode || darkReaderMode) {
+      setDarkMode(false);
+      setDarkReaderMode(false);
+    } else {
+      setDarkMode(true);
+      setDarkReaderMode(true);
+    }
   };
 
   return (
@@ -38,14 +66,14 @@ const Navbar = () => {
         <li><Link href="/review">Review</Link></li>
         <li><Link href="/publish">Publish</Link></li>
       </ul>
-        <Image
-          onClick={handleDarkMode}
-          className="cursor-pointer"
-          src={darkMode ? '/icons/light-mode.svg' : '/icons/dark-mode.svg'}
-          alt="Toggle Dark Mode"
-          width={32}
-          height={32}
-        />
+      <Image
+        onClick={handleDarkMode}
+        className="cursor-pointer"
+        src={darkMode ? '/icons/light-mode.svg' : '/icons/dark-mode.svg'}
+        alt="Toggle Dark Mode"
+        width={32}
+        height={32}
+      />
     </nav>
   );
 };
