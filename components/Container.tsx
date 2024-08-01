@@ -23,7 +23,7 @@ const Container = ({ header, author, info, sources, help }: { header: string, au
                         <div className='flex flex-row w-full justify-between '>
                             <h1 className='text-black text-2xl'>{header}</h1>
                             {help && (
-                                <button onClick={handleToggleStuck}>Stuck?</button>
+                                <button onClick={handleToggleStuck} className='hover:animate-bounce'>Stuck?</button>
                             )}
                         </div>
                         <p className='text-black text-[16px] capitalize'>{author}</p>
@@ -52,7 +52,7 @@ const Container = ({ header, author, info, sources, help }: { header: string, au
                 <div className='flex flex-col w-full gap-2'>
                     <div className='flex flex-row w-full justify-between '>
                         <h1 className='text-black text-2xl'>{header}</h1>
-                        <button onClick={handleToggleStuck}>Back</button>
+                        <button onClick={handleToggleStuck} className='hover:animate-bounce'>Back</button>
                     </div>
                     <p className='text-black text-[16px] capitalize'>{author}</p>
                     <div>
