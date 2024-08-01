@@ -7,15 +7,13 @@ import Cookies from 'js-cookie';
 
 const Identify: React.FC = () => {
     const ref = useRef<HTMLSelectElement>(null);
-    const router = useRouter();
 
     // Set the name in a cookie
     const handleClick = () => {
         if (ref.current) {
-            Cookies.set('name', ref.current.value);
-            router.refresh();
-            router.push('/home');
+            Cookies.set('name', ref.current.value, { expires: 30 });
         }
+        location.href = '/home';
     };
 
     return (

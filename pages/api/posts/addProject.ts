@@ -44,8 +44,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         await newProject.save();
 
-        console.log("Project added successfully");
-        console.log(newProject);
+        // console.log("Project added successfully");
+        // console.log(newProject);
 
         return res.status(201).json({ message: "Project added successfully" }); // 201: Created
 

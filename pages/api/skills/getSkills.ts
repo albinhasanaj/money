@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }   
 
     const { name } = req.query;
-    console.log(name);
+    // console.log(name);
 
     try {
         await connectToDB();
