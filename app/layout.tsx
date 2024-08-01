@@ -19,12 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <main className="flex flex-col items-center min-h-screen w-full bg-[#D1D1D1]">
-          <Navbar/>
+        <main className="flex flex-col items-center min-h-screen w-full bg-[#D1D1D1] transition-colors duration-500 dark:bg-[#121212]">
+          <Navbar />
           {children}
           <Toaster />
         </main>
-        </body>
+      </body>
     </html>
   );
 }

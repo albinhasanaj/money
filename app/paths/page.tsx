@@ -20,7 +20,7 @@ const Paths = () => {
     const data = await res.json();
     setData(Array.isArray(data) ? data : []);
   }, [name]);
-  
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -66,11 +66,11 @@ const Paths = () => {
 
   return (
     <section className='min-h-screen flex flex-col text-black items-center p-4'>
-      <label htmlFor="paths" className='self-start'>Path</label>
-      <select 
-        name="paths" 
-        id="paths" 
-        className='p-2 max-w-[200px] self-start'
+      <label htmlFor="paths" className='self-start duration-500 transition-colors dark:text-white'>Path</label>
+      <select
+        name="paths"
+        id="paths"
+        className='p-2 max-w-[200px] self-start dark:bg-[#3f3f3f] duration-500 transition-colors dark:text-white'
         onChange={(e) => {
           setName(e.target.value);
         }
@@ -84,18 +84,18 @@ const Paths = () => {
       <BarChart
         dataset={data}
         xAxis={[
-            { 
-                scaleType: 'band', 
-                dataKey: 'skill',
-            }]}
-            yAxis={[
-                {
-                    scaleType: 'linear',
-                    dataKey: 'percentage',
-                    min: 0,
-                    max: 100,
-                },
-            ]}
+          {
+            scaleType: 'band',
+            dataKey: 'skill',
+          }]}
+        yAxis={[
+          {
+            scaleType: 'linear',
+            dataKey: 'percentage',
+            min: 0,
+            max: 100,
+          },
+        ]}
         series={[
           {
             dataKey: 'percentage',
@@ -110,37 +110,38 @@ const Paths = () => {
           },
         }}
       />
-      <span className='text-[20px]'>Levels</span>
+      <span className='text-[20px] duration-500 transition-colors dark:text-white'>Levels</span>
       <div className='flex flex-col gap-6 w-[1000px]'>
-      {data && data.length > 0 ? (
-                data.map(({ skill, percentage }) => (
-                    <div key={skill} className='flex justify-between bg-[#F9F6F2] p-4'>
-                        <span>{skill}</span>
-                        <select
-                            value={percentage}
-                            onChange={(e) => handleChangePercentage(skill, parseInt(e.target.value))}
-                        >
-                            {/* loop through 0-100 */}
-                            {[...Array.from(Array(101).keys())].map((i) => (
-                                <option 
-                                    key={i} 
-                                    value={i}
-                                >{i}%</option>
-                            ))}
-                        </select>
-                    </div>
-                ))
-            ) : (
-                <div>No skills found</div>
-            )}
-        
+        {data && data.length > 0 ? (
+          data.map(({ skill, percentage }) => (
+            <div key={skill} className='flex justify-between bg-[#F9F6F2] duration-500 transition-colors dark:bg-[#3f3f3f] p-4'>
+              <span className='dark:text-white duration-500 transition-colors'>{skill}</span>
+              <select
+                value={percentage}
+                onChange={(e) => handleChangePercentage(skill, parseInt(e.target.value))}
+                className='dark:bg-[#3f3f3f] dark:text-white duration-500 transition-colors'
+              >
+                {/* loop through 0-100 */}
+                {[...Array.from(Array(101).keys())].map((i) => (
+                  <option
+                    key={i}
+                    value={i}
+                  >{i}%</option>
+                ))}
+              </select>
+            </div>
+          ))
+        ) : (
+          <div className='duration-500 transition-colors dark:text-white'>No skills found</div>
+        )}
+
         <div
-        className='flex justify-between bg-[#F9F6F2] p-4' 
+          className='flex justify-between bg-[#F9F6F2] p-4 duration-500 transition-colors dark:bg-[#3f3f3f] dark:text-white'
         >
-          <input type="text" name="" id="" placeholder='skill or delete [skill]' className='w-[200px] border-2'
-          onChange={(e) => setSkill(e.target.value)}
+          <input type="text" name="" id="" placeholder='skill or delete [skill]' className='w-[200px] border-2 duration-500 transition-colors dark:bg-[#353535] dark:text-white border-none outline-none pl-1 dark:placeholder:text-[#b1b1b1]'
+            onChange={(e) => setSkill(e.target.value)}
           />
-          <button onClick={createSkill} className='border-2'>submit</button>
+          <button onClick={createSkill} className='border-2 duration-500 transition-colors rounded-sm px-2'>Submit</button>
 
         </div>
       </div>

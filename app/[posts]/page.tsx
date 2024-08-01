@@ -26,12 +26,12 @@ const Project = ({ params }: { params: { posts: string } }) => {
             console.log(error)
         }
     }
-    
+
 
     useEffect(() => {
         const fetchAndSetData = async () => {
             if (posts == "home") {
-                try { 
+                try {
                     const length = await fetchData("getProjects")
                     setTextToDisplay("Projects Total: " + length)
                 } catch (error) {
@@ -40,7 +40,7 @@ const Project = ({ params }: { params: { posts: string } }) => {
                 }
             } else if (posts == "learn") {
                 try {
-                    const length = await fetchData("getLearn") 
+                    const length = await fetchData("getLearn")
                     setTextToDisplay("Total learning: " + length)
                 } catch (error) {
                     // toast.error("Error fetching data")
@@ -50,12 +50,12 @@ const Project = ({ params }: { params: { posts: string } }) => {
                 setTextToDisplay("Review: 50%")
             }
         }
-    
+
         fetchAndSetData();
     }, [posts]);
     return (
-        <div className=' bg-[#D1D1D1] w-full items-center flex flex-col pt-10'>
-            <p className='text-black text-[16px] w-[756px] text-start pb-2'>{textToDisplay}</p>
+        <div className=' bg-[#D1D1D1] dark:bg-[#121212] duration-500 transition-colors w-full items-center flex flex-col pt-10'>
+            <p className='text-black text-[16px] w-[756px] text-start pb-2 transition-colors duration-500 dark:text-white'>{textToDisplay}</p>
             <ContainersContainer data={data} />
         </div>
     )

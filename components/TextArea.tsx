@@ -7,10 +7,10 @@ const TextArea = ({ item, index }: { item: string, index: number }) => {
         setToggleBlur(!toggleBlur)
     }
     return (
-        <div 
-        onClick={handleToggleBlur}
-        className={`${toggleBlur || index == 0 ? "" : "blur-[3.5px] cursor-pointer select-none hover:bg-black hover:bg-opacity-5"}`}>
-        <CodeDisplay code={item} />
+        <div
+            onClick={handleToggleBlur}
+            className={`${toggleBlur || index == 0 ? "" : "blur-[3.5px] cursor-pointer select-none hover:bg-black hover:bg-opacity-5"}`}>
+            <CodeDisplay code={item} />
         </div>
 
     )
