@@ -13,6 +13,7 @@ const Identify: React.FC = () => {
     const handleClick = () => {
         if (ref.current) {
             Cookies.set('name', ref.current.value);
+            router.refresh();
             router.push('/home');
         }
     };

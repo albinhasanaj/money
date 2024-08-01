@@ -1,11 +1,14 @@
 "use client";
 import ContainersContainer from '@/components/ContainersContainer'
 import React, { useEffect } from 'react'
-import toast from 'react-hot-toast';
+
+//@ts-expect-error no types for js-cookie
+import Cookies from 'js-cookie';
 
 const Project = ({ params }: { params: { posts: string } }) => {
     const { posts } = params
     const [data, setData] = React.useState([])
+    const [username, setUsername] = React.useState("")
 
     const [textToDisplay, setTextToDisplay] = React.useState("")
 
@@ -27,12 +30,18 @@ const Project = ({ params }: { params: { posts: string } }) => {
         }
     }
 
+    useEffect(() => {
+        const username = Cookies.get('name')
+        setUsername(username)
+    }, [])
+
 
     useEffect(() => {
         const fetchAndSetData = async () => {
             if (posts == "home") {
                 try {
-                    const length = await fetchData("getProjects")
+                    const username = Cookies.get('name')
+                    const length = await fetchData("getProjects?name=" + username)
                     setTextToDisplay("Projects Total: " + length)
                 } catch (error) {
                     // toast.error("Error fetching data")
@@ -56,7 +65,7 @@ const Project = ({ params }: { params: { posts: string } }) => {
     return (
         <div className=' bg-[#D1D1D1] dark:bg-[#121212] duration-500 transition-colors w-full items-center flex flex-col pt-10'>
             <p className='text-black text-[16px] w-[756px] text-start pb-2 transition-colors duration-500 dark:text-white'>{textToDisplay}</p>
-            <ContainersContainer data={data} />
+            <ContainersContainer data={data} username={username} />
         </div>
     )
 }

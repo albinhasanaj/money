@@ -21,6 +21,12 @@ const projectSchema = new mongoose.Schema({
         type: [String],
         default: [],
     },
+    isDone: [
+        {
+            username: String,
+            done: Boolean,
+        },
+    ]
 }, {
     timestamps: true,
 });

@@ -15,6 +15,12 @@ const learnSchema = new mongoose.Schema({
         required: true,
     },
     sources: [],
+    isDone: [
+        {
+            username: String,
+            done: Boolean,
+        },
+    ]
 
 }, {
     timestamps: true,

@@ -16,6 +16,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     await connectToDB();
 
+    const usersDone = [
+        {
+            username: "albin",
+            done: false,
+        }, {
+            username: "rafey",
+            done: false,
+        },
+        {
+            username: "oliver",
+            done: false,
+        }
+    ]
+
     try {
         
         const newProject = new Project({
@@ -24,6 +38,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             description,
             sources,
             help,
+            isDone: usersDone
+
         });
 
         await newProject.save();

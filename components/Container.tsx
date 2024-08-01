@@ -3,19 +3,41 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useRef } from 'react'
 import TextArea from './TextArea'
+import toast from 'react-hot-toast'
 
-const Container = ({ header, author, info, sources, help }: { header: string, author: string, info: string, sources?: string[], help: string[] }) => {
+const Container = ({ header, author, info, sources, help, isDone, username }: { header: string, author: string, info: string, sources?: string[], help: string[], isDone: boolean, username: string }) => {
 
     const [toggleStuck, setToggleStuck] = React.useState(true)
-    const [toggleDone, setToggleDone] = React.useState(false)
+    const [toggleDone, setToggleDone] = React.useState(isDone)
 
 
     const handleToggleStuck = () => {
         setToggleStuck(!toggleStuck)
     }
 
-    const handleToggleDone = () => {
-        setToggleDone(!toggleDone)
+    const handleToggleDone = async () => {
+        // fetch db
+        try {
+            
+            const res = await fetch('/api/posts/updateDone', {
+                method: 'PATCH',
+                body: JSON.stringify({ title: header, username, isDone: !toggleDone }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            if (!res.ok) {
+                throw new Error('Error updating')
+            }
+
+            toast.success('Updated')
+        } catch (error) {
+            console.error(error)
+            toast.error('Error updating')
+        } finally {
+            setToggleDone(!toggleDone)
+        }
+        
     }
 
 
