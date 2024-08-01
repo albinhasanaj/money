@@ -130,7 +130,7 @@ const Publish: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Title*"
-                  className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:text-white dark:bg-[#3f3f3f] outline-1 border-b-white border-b-2 dark:focus:border-white dark:focus:ring-white'
+                  className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:text-white dark:bg-[#3f3f3f] outline-1 dark:border-2 dark:focus:border-white dark:focus:ring-white'
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                 />
@@ -140,12 +140,12 @@ const Publish: React.FC = () => {
                       placeholder="Description*"
                       name="Description"
                       id="Description"
-                      className='w-full h-[100px] py-3 px-4 block border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:text-white dark:bg-[#3f3f3f] outline-1 border-b-white border-b-2 dark:focus:border-white dark:focus:ring-white'></textarea>
+                      className='w-full h-[100px] py-3 px-4 block border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:border-2 dark:text-white dark:bg-[#3f3f3f] outline-1 border-b-white dark:focus:border-white dark:focus:ring-white'></textarea>
                   </div>
                 ) : (
                   <textarea
                     placeholder="Description*"
-                    className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:text-white dark:bg-[#3f3f3f] outline-1 border-b-white border-b-2 dark:focus:border-white dark:focus:ring-white'
+                    className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:text-white dark:bg-[#3f3f3f] outline-1 dark:border-2 dark:focus:border-white dark:focus:ring-white'
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
@@ -170,7 +170,7 @@ const Publish: React.FC = () => {
                       setAddTextArea([...addTextArea])
                     }}
                     placeholder='test'
-                    className='h-[200px] block px-5 py-3 w-[600px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:text-white dark:bg-[#3f3f3f] outline-1 border-b-white border-b-2 dark:focus:border-white dark:focus:ring-white'></textarea>
+                    className='h-[200px] block px-5 py-3 w-[600px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:text-white dark:bg-[#3f3f3f] outline-1 dark:border-2 dark:focus:border-white dark:focus:ring-white'></textarea>
                 })}
                 <button onClick={handleAddTextArea}>Add more Help</button>
               </div>

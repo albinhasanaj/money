@@ -2,22 +2,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-
 //@ts-expect-error no types for js-cookie
 import Cookies from 'js-cookie';
-
-import {
-  enable as enableDarkMode,
-  disable as disableDarkMode,
-  auto as followSystemColorScheme,
-  exportGeneratedCSS as collectCSS,
-  isEnabled as isDarkReaderEnabled
-} from 'darkreader';
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [darkReaderMode, setDarkReaderMode] = useState(true);
-  const [yourname, setYourname] = React.useState("Your name");
+  const [yourname, setYourname] = useState("Your name");
+
+  useEffect(() => {
+    const name = Cookies.get('name');
+    if (name) {
+      setYourname(name);
+    }
+  }, []);
 
   useEffect(() => {
     if (darkMode) {
@@ -28,23 +26,21 @@ const Navbar = () => {
   }, [darkMode]);
 
   useEffect(() => {
-    if (darkReaderMode) {
-      enableDarkMode({
-        brightness: 100,
-        contrast: 90,
-        sepia: 10,
+    if (typeof window !== 'undefined') {
+      // Dynamically import darkreader only on the client side
+      import('darkreader').then(({ enable, disable }) => {
+        if (darkReaderMode) {
+          enable({
+            brightness: 100,
+            contrast: 90,
+            sepia: 10,
+          });
+        } else {
+          disable();
+        }
       });
-    } else {
-      disableDarkMode();
     }
   }, [darkReaderMode]);
-
-  useEffect(() => {
-    const name = Cookies.get('name');
-    if (name) {
-      setYourname(name);
-    }
-  }, []);
 
   const handleDarkMode = () => {
     if (darkMode || darkReaderMode) {
@@ -58,7 +54,7 @@ const Navbar = () => {
 
   return (
     <nav className="mt-[8px] flex items-center justify-around w-full px-80">
-      <h3 className='text-black capitalize text-[24px]'>{yourname}</h3>
+      <h3 className='text-black capitalize text-[24px] dark:text-white transition-colors duration-500'>{yourname}</h3>
       <ul className="flex gap-6 text-[20px] text-black h-[40px] transition-colors duration-500 dark:text-white mx-auto">
         <li><Link href="/home">Project</Link></li>
         <li><Link href="/learn">Learn</Link></li>
