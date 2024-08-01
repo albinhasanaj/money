@@ -176,11 +176,14 @@ const Publish: React.FC = () => {
                 <button onClick={handleAddTextArea}>Add more Help</button>
               </div>
             )}
+            {addTitle !== "Quiz" && (
             <div className='w-full flex justify-center'>
-              <button
-                onClick={handlePublish}
-                className='w-[300px] h-[45px] border-black border-[2px] bg-[#cac9c9] rounded-md'>Publish</button>
-            </div>
+            <button
+              onClick={handlePublish}
+              className='w-[300px] h-[45px] border-black border-[2px] bg-[#cac9c9] rounded-md'>Publish</button>
+          </div>
+            )  
+            }
           </div>
         </div>
       </section>

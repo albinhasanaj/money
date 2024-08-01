@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const QuizCreator = () => {
     const [title, setTitle] = useState('');
@@ -39,7 +40,7 @@ const QuizCreator = () => {
         };
 
         try {
-            const response = await fetch('/api/quiz/createQuiz', {
+            const response = await fetch('/api/posts/createQuiz', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,21 +49,21 @@ const QuizCreator = () => {
             });
 
             if (response.ok) {
-                alert('Quiz saved successfully!');
+                toast.success('Quiz saved successfully');
                 setTitle('');
                 setQuestions([{ question: '', answers: ['', '', '', ''], correctAnswer: '' }]);
             } else {
                 const errorData = await response.json();
-                alert(`Error: ${errorData.message}`);
+                toast.error(errorData.message);
             }
         } catch (error) {
-            alert('An error occurred while saving the quiz.');
+            toast.error('Failed to save quiz');
             console.error('Error:', error);
         }
     };
 
     return (
-        <div className="p-6 rounded-lg shadow-md bg-white">
+        <div className="p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-semibold mb-4">Create Quiz</h2>
             <input
                 type="text"
