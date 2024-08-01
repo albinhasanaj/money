@@ -102,8 +102,8 @@ const Paths = () => {
             color: "white"
           }
         ]}
-        height={800}
-        width={1000}
+        height={1000}
+        width={1500}
         sx={{
           [`& .${axisClasses.directionY} .${axisClasses.label}`]: {
             transform: 'translateX(-10px)'
