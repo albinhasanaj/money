@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 //@ts-expect-error no types for js-cookie
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
+import QuizCreator from '@/components/QuizCreator';
 
 const Publish: React.FC = () => {
 
@@ -31,8 +32,8 @@ const Publish: React.FC = () => {
     } else if (target.innerText === "Learn") {
       setAddTitle("Learn");
       setShowTextArea(false);
-    } else if (target.innerText === "Review") {
-      setAddTitle("Review");
+    } else if (target.innerText === "Quiz") {
+      setAddTitle("Quiz");
       setShowTextArea(false);
     }
   };
@@ -114,7 +115,7 @@ const Publish: React.FC = () => {
           <div
             onClick={toggleHidden}
             className='size-[350px] bg-[#D9D9D9] flex flex-col text-black items-center justify-around cursor-pointer dark:bg-[#3f3f3f] duration-500 transition-colors'>
-            <span className='text-[24px] dark:text-white duration-500 transition-colors'>Review</span>
+            <span className='text-[24px] dark:text-white duration-500 transition-colors'>Quiz</span>
           </div>
 
         </div>
@@ -127,20 +128,18 @@ const Publish: React.FC = () => {
           <div className='flex gap-10 mt-8 flex-col justify-between h-full'>
             <div className='flex gap-4'>
               <div className='flex flex-col gap-4'>
-                <input
-                  type="text"
-                  placeholder="Title*"
-                  className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:text-white dark:bg-[#3f3f3f] outline-1 dark:border-2 dark:focus:border-white dark:focus:ring-white'
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                />
-                {addTitle == "Review" ? (
+                {addTitle !== "Quiz" && (
+                  <input
+                    type="text"
+                    placeholder="Title*"
+                    className='py-3 px-4 block w-[300px] border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:text-white dark:bg-[#3f3f3f] outline-1 dark:border-2 dark:focus:border-white dark:focus:ring-white'
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                  />
+                )}
+                {addTitle == "Quiz" ? (
                   <div>
-                    <textarea
-                      placeholder="Description*"
-                      name="Description"
-                      id="Description"
-                      className='w-full h-[100px] py-3 px-4 block border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none duration-500 transition-colors dark:border-2 dark:text-white dark:bg-[#3f3f3f] outline-1 border-b-white dark:focus:border-white dark:focus:ring-white'></textarea>
+                    <QuizCreator />
                   </div>
                 ) : (
                   <textarea
@@ -151,12 +150,14 @@ const Publish: React.FC = () => {
                   />
                 )}
               </div>
-              <div className='flex flex-col gap-4'>
-                {sources.map((source: any, index: any) => {
-                  return <Input key={index} placeholder="Source" setSources={setSources} sources={sources} />
-                }
-                )}
-              </div>
+              {addTitle !== "Quiz" && (
+                <div className='flex flex-col gap-4'>
+                  {sources.map((source: any, index: any) => {
+                    return <Input key={index} placeholder="Source" setSources={setSources} sources={sources} />
+                  }
+                  )}
+                </div>
+              )}
             </div>
             {showTextArea && (
               <div className='flex flex-col items-center gap-8'>

@@ -1,28 +1,39 @@
 import Container from '@/components/Container'
 import React from 'react'
+import QuizContainer from './QuizContainer';
 
 
-const ContainersContainer = ({ data, username }: { data: any, username: string }) => {
+const ContainersContainer = ({ data, username, quiz }: { data: any, username: string, quiz: boolean }) => {
 
-        
+
     return (
         <div className='flex flex-col gap-10'>
-            {data.map((item: any, index: number) => {
+            {quiz ? (
+                <>{data.map((item: any, index: number) => {
+                    return (
+                        <QuizContainer id={item._id} title={item.title} key={index} />
+                    )
+                })}</>
+            ) : (
+                <>
+                    {data.map((item: any, index: number) => {
 
-                const isUserDone = item.isDone;
-                // find the user in the array
-                const user = isUserDone.find((user: any) => user.username === username);
-                // get the done status
-                const isDone = user.done;
+                        const isUserDone = item.isDone;
+                        // find the user in the array
+                        const user = isUserDone.find((user: any) => user.username === username);
+                        // get the done status
+                        const isDone = user.done;
 
 
-                return (
+                        return (
 
-                    <Container key={index} header={item.title} author={item.name} info={item.description} sources={item.sources} help={item.help} isDone={isDone}
-                    username={username}
-                    />  
-                )
-            }
+                            <Container key={index} header={item.title} author={item.name} info={item.description} sources={item.sources} help={item.help} isDone={isDone}
+                                username={username}
+                            />
+                        )
+                    }
+                    )}
+                </>
             )}
         </div>
     )

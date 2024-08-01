@@ -30,6 +30,7 @@ const Project = ({ params }: { params: { posts: string } }) => {
         }
     }
 
+
     useEffect(() => {
         const username = Cookies.get('name')
         setUsername(username)
@@ -55,8 +56,15 @@ const Project = ({ params }: { params: { posts: string } }) => {
                     // toast.error("Error fetching data")
                     console.error(error)
                 }
-            } else if (posts == "review") {
-                setTextToDisplay("Review: 50%")
+            } else if (posts == "quiz") {
+                try {
+                    const length = await fetchData("getQuiz")
+                    setTextToDisplay("Total quizzes: " + length)
+                } catch (error) {
+                    // toast.error("Error fetching data")
+                    console.error(error)
+
+                }
             }
         }
 
@@ -65,7 +73,7 @@ const Project = ({ params }: { params: { posts: string } }) => {
     return (
         <div className=' bg-[#D1D1D1] dark:bg-[#121212] duration-500 transition-colors w-full items-center flex flex-col pt-10'>
             <p className='text-black text-[16px] w-[756px] text-start pb-2 transition-colors duration-500 dark:text-white'>{textToDisplay}</p>
-            <ContainersContainer data={data} username={username} />
+            <ContainersContainer data={data} username={username} quiz={posts == "quiz"} />
         </div>
     )
 }
