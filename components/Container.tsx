@@ -7,10 +7,15 @@ import TextArea from './TextArea'
 const Container = ({ header, author, info, sources, help }: { header: string, author: string, info: string, sources?: string[], help: string[] }) => {
 
     const [toggleStuck, setToggleStuck] = React.useState(true)
+    const [toggleDone, setToggleDone] = React.useState(false)
 
 
     const handleToggleStuck = () => {
         setToggleStuck(!toggleStuck)
+    }
+
+    const handleToggleDone = () => {
+        setToggleDone(!toggleDone)
     }
 
 
@@ -29,23 +34,32 @@ const Container = ({ header, author, info, sources, help }: { header: string, au
                         <p className='text-black text-[16px] capitalize'>{author}</p>
                     </div>
                     <p className='text-black text-[16px]'>{info}</p>
-                    <div className="flex flex-col">
-                        {sources && (
-                            <>
-                                <span>Sources</span>
-                                <div className="flex flex-col">
-                                    {sources.map((source, index) => (
-                                        <Link
-                                            target='_blank'
-                                            key={index} href={source}
-                                            className='text-blue-500 hover:underline text-[12px]'
-                                        >
-                                            {source}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </>
-                        )}
+                    <div className='flex justify-between'>
+                        <div className="flex flex-col  w-[50%]">
+                            {sources && (
+                                <>
+                                    <span>Sources</span>
+                                    <div className="flex flex-col">
+                                        {sources.map((source, index) => (
+                                            <Link
+                                                target='_blank'
+                                                key={index} href={source}
+                                                className='text-blue-500 hover:underline text-[12px]'
+                                            >
+                                                {source}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                        <div className=' w-[50%] flex flex-col items-end justify-end'>
+                            {toggleDone ? (
+                                <Image onClick={handleToggleDone} className='cursor-pointer hover:scale-90 rounded-full transition-all bg-green-700' src='/images/done.png' alt="" width={32} height={32} />
+                            ) : (
+                                <Image onClick={handleToggleDone} className='cursor-pointer hover:scale-90 rounded-full transition-all' src='/images/notdone.png' alt="" width={32} height={32} />
+                            )}
+                        </div>
                     </div>
                 </div>
             ) : (
