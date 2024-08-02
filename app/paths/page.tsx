@@ -82,43 +82,44 @@ const Paths = () => {
         <option value="rafey">Rafey</option>
       </select>
       <BarChart
-        dataset={data}
-        xAxis={[
-          {
-            scaleType: 'band',
-            dataKey: 'skill',
-          }]}
-        yAxis={[
-          {
-            scaleType: 'linear',
-            dataKey: 'percentage',
-            min: 0,
-            max: 100,
-            colorMap: {
-              type: 'continuous',
-              min: 0,
-              max: 100,
-              color: (t) => {
-                const value = Math.round(t * 255);
-                const color = `rgb(${value}, ${value}, ${value})`; // transition from black to white
-                return color;
-              }
-            }
-          },
-        ]}
-        series={[
-          {
-            dataKey: 'percentage',
-          }
-        ]}
-        height={1000}
-        width={1500}
-        sx={{
-          [`& .${axisClasses.directionY} .${axisClasses.label}`]: {
-            transform: 'translateX(-10px)'
-          },
-        }}
-      />
+  className="neon-glow"
+  dataset={data}
+  xAxis={[
+    {
+      scaleType: 'band',
+      dataKey: 'skill',
+    }
+  ]}
+  yAxis={[
+    {
+      scaleType: 'linear',
+      dataKey: 'percentage',
+      min: 0,
+      max: 100,
+      colorMap: {
+        type: 'continuous',
+        min: 0,
+        max: 100,
+        color: (t) => {
+          const darkPurple = [75, 0, 130]; // darker purple
+          const neonPurple = [255, 0, 255]; // neon purple
+          const r = darkPurple[0] + (neonPurple[0] - darkPurple[0]) * t;
+          const g = darkPurple[1] + (neonPurple[1] - darkPurple[1]) * t;
+          const b = darkPurple[2] + (neonPurple[2] - darkPurple[2]) * t;
+          return `rgb(${r}, ${g}, ${b})`;
+        }
+      }
+    },
+  ]}
+  series={[
+    {
+      dataKey: 'percentage',
+    }
+  ]}
+  height={1000}
+  width={1500}
+/>
+
       <span className='text-[20px] duration-500 transition-colors dark:text-white'>Levels</span>
       <div className='flex flex-col gap-6 w-[1000px]'>
         {data && data.length > 0 ? (
