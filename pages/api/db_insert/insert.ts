@@ -5,16 +5,16 @@ import Learn from "@/models/learnSchema";
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== "POST") {
+    if (req.method !== "PATCH") {
         return res.status(405).json({ message: "Method not allowed" });
     }
 
-    // add isDone field to all the projects
-    // get all the projects
+    const {title} = req.body;
 
     await connectToDB();
 
-    const allProjects = await Learn.find({});
+    const find = await Learn.find({title});
+    console.log(find);
     const usersDone = [
         {
             username: "albin",
@@ -30,13 +30,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     ]
 
     
-    // all projects add this usersdone
-    allProjects.forEach(async (project) => {
+    // // all projects add this usersdone
+    find.forEach(async (project) => {
         project.isDone = usersDone;
         await project.save();
     });
     
-    console.log(allProjects);
+    // console.log(allProjects);
 
     return res.status(201).json({ message: "Project added successfully" }); // 201: Created
 }

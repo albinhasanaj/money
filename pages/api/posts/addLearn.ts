@@ -15,6 +15,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     await connectToDB();
+
+    const usersDone = [
+        {
+            username: "albin",
+            done: false,
+        }, {
+            username: "rafey",
+            done: false,
+        },
+        {
+            username: "oliver",
+            done: false,
+        }
+    ]
+
     try {
 
         const newLearn = new Learn({
@@ -22,6 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             title,
             description,
             sources,
+            isDone: usersDone
         });
 
         await newLearn.save();
