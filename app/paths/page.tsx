@@ -94,12 +94,21 @@ const Paths = () => {
             dataKey: 'percentage',
             min: 0,
             max: 100,
+            colorMap: {
+              type: 'continuous',
+              min: 0,
+              max: 100,
+              color: (t) => {
+                const value = Math.round(t * 255);
+                const color = `rgb(${value}, ${value}, ${value})`; // transition from black to white
+                return color;
+              }
+            }
           },
         ]}
         series={[
           {
             dataKey: 'percentage',
-            color: "white"
           }
         ]}
         height={1000}

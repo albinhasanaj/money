@@ -54,7 +54,9 @@ const Navbar = () => {
 
   return (
     <nav className="mt-[8px] flex items-center justify-around w-full px-80">
-      <h3 className='text-black capitalize text-[24px] dark:text-white transition-colors duration-500'>{yourname}</h3>
+      <Link 
+      href="/identify"
+      className='text-black capitalize text-[24px] dark:text-white transition-colors duration-500'>{yourname}</Link>
       <ul className="flex gap-6 text-[20px] text-black h-[40px] transition-colors duration-500 dark:text-white mx-auto">
         <li><Link href="/home">Project</Link></li>
         <li><Link href="/learn">Learn</Link></li>
