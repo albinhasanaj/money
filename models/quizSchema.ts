@@ -21,7 +21,10 @@ const quizSchema = new mongoose.Schema({
         required: true,
     },
     questions: [questionSchema],
-});
+
+}, {
+    timestamps: true}
+);
 
 const Quiz = mongoose.models.Quiz || mongoose.model('Quiz', quizSchema);
 
